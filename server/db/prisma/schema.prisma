@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Plant {
+  id                        Int        @id @unique @default(autoincrement())
+  commonName                String     @unique
+  scientificName            String     @unique
+  lastWateredAt             DateTime?  @default(now())
+  lastFertilizedAt          DateTime?  @default(now())
+  lastRepottedAt            DateTime?  @default(now())
+  lastCleanedAt             DateTime?  @default(now())
+  waterVolumeRequirement    Int?
+  waterFrequencyRequirement String?
+  sunRequirement            String?
+  soilRequirement           String?
+  propagationType           String?
+  flowers                   String?
+  growthRate                String?
+  careLevel                 String?
+  poisonousToHumans         Boolean?
+  poisonousToPets           Boolean?
+  description               String?
+  imageUrl                  String?
+  careGuide                 CareGuide? @relation(fields: [careGuideId], references: [id])
+  questions                 FAQ[]
+  careGuideId               Int?
+  User                      User[]
+}
+
+model CareGuide {
+  id       Int     @id @unique @default(autoincrement())
+  watering String?
+  sunlight String?
+  pruning  String?
+  Plant    Plant[]
+}
+
+model FAQ {
+  id       Int     @id @unique @default(autoincrement())
+  question String?
+  answer   String?
+  Plant    Plant?  @relation(fields: [plantId], references: [id])
+  plantId  Int?
+}
+
+model User {
+  id             Int    @id @unique @default(autoincrement())
+  username       String @unique
+  email          String @unique
+  hashedPassword String
+  plantList      Plant? @relation(fields: [plantId], references: [id])
+  plantId        Int?
+}

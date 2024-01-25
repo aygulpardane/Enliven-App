@@ -1,0 +1,27 @@
+{
+  "name": "enliven-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server:dev": "nodemon server/index.js -w server",
+    "start": "NODE_ENV=production node server/index.js",
+    "seed": "node server/db/seed.js"
+  },
+  "author": "aygul-pardane",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/datasource-rest": "^6.2.2",
+    "@apollo/server": "^4.10.0",
+    "@prisma/client": "^5.8.1",
+    "apollo-server": "^3.13.0",
+    "apollo-server-express": "^3.13.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.8.1"
+  }
+}
