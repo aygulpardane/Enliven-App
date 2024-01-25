@@ -14,6 +14,7 @@ const typeDefs = gql`
         "Information of the user"
         user(id: ID!): User
         plant(id: ID!): Plant
+        FAQ(id: ID!): FAQ
     }
 
     type Mutation {
@@ -56,7 +57,7 @@ const typeDefs = gql`
         description: String
         imageUrl: String
         careGuide: CareGuide
-        questions: [FAQ!]!
+        questions: FAQ
     }
 
     type CareGuide {
@@ -67,7 +68,7 @@ const typeDefs = gql`
     }
 
     type FAQ {
-        id: ID!
+        id: ID
         question: String
         answer: String
     }

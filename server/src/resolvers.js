@@ -4,7 +4,9 @@ const prisma = require('../db/client');
 
 const resolvers = {
     Query: {
-        // this returns a list of all the plants
+        // !!!!!!!!! <
+        // NEED TO CHANGE this so that returns a list of all the plants belonging to one person
+        // this does not return the questions field because that field needs a resolver of its own which is written below
         plantStand: async () => {
             try {
                 const plants = await prisma.plant.findMany();
@@ -56,15 +58,29 @@ const resolvers = {
             });
         },
     },
-    User: { // not sure about this
-        plantList: ({id}) => {
-            return prisma.user
-            .findUnique({
-                where: {id: id},
-            })
-            .plantList()
+    // User: { // not sure about this
+    //     plantList: ({id}) => {
+    //         return prisma.user
+    //         .findUnique({
+    //             where: {id: id},
+    //         })
+    //         .plantList()
+    //     }
+    // },
+    Plant: {
+        questions: (parent) => {
+            // console.log(parent); // this returns an array of two objects
+            // console.log(parent.questions); // this is undefined
+            return prisma.plant.findMany();
         }
     },
+    FAQ: {
+        question: (parent) => {
+            // console.log(parent[0]); // this returns an array of two objects?!
+            // console.log(parent); // this returns two arrays of two objects each?!
+            return prisma.FAQ.findMany();
+        }
+    }
 };
 
 module.exports = {resolvers};

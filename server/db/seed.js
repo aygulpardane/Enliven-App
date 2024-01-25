@@ -25,7 +25,23 @@ async function main() {
                 }
             }
         }
-    })
+    });
+
+    await prisma.plant.upsert({
+        where: {commonName: 'Pothos'},
+        update: {},
+        create: {
+            commonName: 'Pothos',
+            scientificName: 'Pothos Pothos',
+            questions: {
+                create: {
+                    question: 'question',
+                    answer: 'answer'
+                }
+            }
+        }
+    });
+
 };
 
 main()
