@@ -31,7 +31,7 @@ model Plant {
   description               String?
   imageUrl                  String?
   careGuide                 CareGuide? @relation(fields: [careGuideId], references: [id])
-  careGuideId               Int?
+  careGuideId               Int? @unique
   User                      User[]
 }
 
@@ -40,7 +40,8 @@ model CareGuide {
   watering String?
   sunlight String?
   pruning  String?
-  Plant    Plant[]
+  plant    Plant?
+  plantId   Int? @unique
 }
 
 model User {
