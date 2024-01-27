@@ -31,7 +31,6 @@ model Plant {
   description               String?
   imageUrl                  String?
   careGuide                 CareGuide? @relation(fields: [careGuideId], references: [id])
-  questions                 FAQ[]
   careGuideId               Int?
   User                      User[]
 }
@@ -42,14 +41,6 @@ model CareGuide {
   sunlight String?
   pruning  String?
   Plant    Plant[]
-}
-
-model FAQ {
-  id       Int     @id @unique @default(autoincrement())
-  question String?
-  answer   String?
-  Plant    Plant?  @relation(fields: [plantId], references: [id])
-  plantId  Int?
 }
 
 model User {

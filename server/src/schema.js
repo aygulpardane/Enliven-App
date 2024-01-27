@@ -56,7 +56,6 @@ const typeDefs = gql`
         description: String
         imageUrl: String
         careGuide: CareGuide
-        questions: [FAQ!]!
     }
 
     type CareGuide {
@@ -64,12 +63,6 @@ const typeDefs = gql`
         watering: String
         sunlight: String
         pruning: String
-    }
-
-    type FAQ {
-        id: ID!
-        question: String
-        answer: String
     }
 `;
 
