@@ -13,14 +13,79 @@ const typeDefs = gql`
         plantStand: [Plant!]!
         "Information of the user"
         user(id: ID!): User
+        "Information of the plant"
         plant(id: ID!): Plant
+        "Information of the care guide"
+        careGuide(id: ID!): CareGuide
     }
 
     type Mutation {
         createUser(username: String!, email: String!, hashedPassword: String!): CreateUserResponse!
+
+        loginUser(email: String!, hashedPassword: String!): LoginUserResponse!
+
+        updateUser(id: ID!, username: String!, email: String!, hashedPassword: String!): UpdateUserResponse!
+
+        deleteUser(id: ID!): DeleteUserResponse!
+
+        addToPlantStand(userId: ID!, plantId: ID!): AddToPlantStandResponse!
+
+        updatePlantInPlantStand(userId: ID!, plantId: ID!, updatedPlantInfo: PlantInput!): UpdatePlantResponse!
+
+        deletePlantFromPlantStand(userId: ID!, plantId: ID!): DeletePlantFromPlantStandResponse!
     }
 
     type CreateUserResponse {
+        code: Int!
+        success: Boolean!
+        message: String!
+        user: User
+    }
+
+    type LoginUserResponse {
+        code: Int!
+        success: Boolean!
+        message: String!
+        token: String!
+        user: User
+    }
+
+    type UpdateUserResponse {
+        code: Int!
+        success: Boolean!
+        message: String!
+        user: User
+    }
+
+    type DeleteUserResponse {
+        code: Int!
+        success: Boolean!
+        message: String!
+        user: User
+    }
+
+    type AddToPlantStandResponse {
+        code: Int!
+        success: Boolean!
+        message: String!
+        user: User
+    }
+
+    input PlantInput {
+        lastWateredAt: Date
+        lastFertilizedAt: Date
+        lastRepottedAt: Date
+        lastCleanedAt: Date
+    }
+
+    type UpdatePlantResponse {
+        code: Int!
+        success: Boolean!
+        message: String!
+        plant: Plant
+    }
+
+    type DeletePlantFromPlantStandResponse {
         code: Int!
         success: Boolean!
         message: String!
@@ -56,6 +121,7 @@ const typeDefs = gql`
         description: String
         imageUrl: String
         careGuide: CareGuide
+        User: [User]
     }
 
     type CareGuide {
@@ -63,6 +129,7 @@ const typeDefs = gql`
         watering: String
         sunlight: String
         pruning: String
+        plant: Plant
     }
 `;
 
